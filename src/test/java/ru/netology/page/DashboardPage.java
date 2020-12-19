@@ -3,15 +3,19 @@ package ru.netology.page;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import lombok.val;
+import org.openqa.selenium.WebElement;
 
-import static com.codeborne.selenide.Condition.id;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static org.apache.commons.lang3.StringUtils.*;
+
 
 public class DashboardPage {
     private SelenideElement heading = $("[data-test-id=dashboard]");
     private ElementsCollection cards = $$(".list__item");
+    private SelenideElement transferButton1 = $("[data-test-id = '92df3f1c-a033-48e6-8390-206f6b1f56c0'] [class=button__text]");
+    private SelenideElement transferButton2 =$("[data-test-id= '0f3f5c2a-249e-4c3d-8287-09f7a039391d'] [class=button__text]");
     private final String balanceStart = "баланс: ";
     private final String balanceFinish = " р.";
 
@@ -26,11 +30,17 @@ public class DashboardPage {
     }
 
 
-        public int getCardBalance(String id) {
-        val firstCardBalance = $$("[list__item]").findBy(id("[data-test-id='92df3f1c-a033-48e6-8390-206f6b1f56c0']"));
-        val secondCardBalance = $$("[list__item]").findBy(id("[data-test-id='0f3f5c2a-249e-4c3d-8287-09f7a039391d']"));
-        return extractBalance();
-        }
-
-
+    public int getCardBalance(String cardNumber) {
+        return extractBalance(cards.find(text(cardNumber.substring(15,19))).getText());
     }
+    public TransferPage depositToFirstCard () {
+        transferButton1.click();
+        return new TransferPage();
+    }
+    public TransferPage depositToSecondCard(){
+        transferButton2.click();
+        return new TransferPage();
+    }
+
+
+}
