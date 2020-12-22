@@ -1,14 +1,12 @@
-package ru.netology.page;
+package ru.netology.web.test.page;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import lombok.val;
-import org.openqa.selenium.WebElement;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
-import static org.apache.commons.lang3.StringUtils.*;
 
 
 public class DashboardPage {
@@ -33,6 +31,8 @@ public class DashboardPage {
     public int getCardBalance(String cardNumber) {
         return extractBalance(cards.find(text(cardNumber.substring(15,19))).getText());
     }
+
+
     public TransferPage depositToFirstCard () {
         transferButton1.click();
         return new TransferPage();
@@ -41,6 +41,7 @@ public class DashboardPage {
         transferButton2.click();
         return new TransferPage();
     }
+
 
 
 }
