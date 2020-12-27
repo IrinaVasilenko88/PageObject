@@ -48,10 +48,18 @@ public class DataHelper {
         return new CardInfo("5559 0000 0000 0002");
     }
 
-    public static class TransferInfo{
-        private String TransferSum;
+    public static class RandomAmount {
+        private int transferSum;
     }
-   public static TransferInfo getTransferSum(CardInfo cardInfo)
+
+    public static RandomAmount getTransferSum() {
+        Random random = new Random();
+        int cardBalance = new DashboardPage().getCardBalance();
+        int transferSum = random.nextInt(cardBalance);
+        return transferSum();
+    }
+
+
 }
 
 

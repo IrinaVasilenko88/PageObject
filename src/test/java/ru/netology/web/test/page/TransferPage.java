@@ -1,5 +1,6 @@
 package ru.netology.web.test.page;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.web.test.data.DataHelper;
 
@@ -14,7 +15,7 @@ public class TransferPage {
         $("[data-test-id='from'] .input__control").setValue(cardInfo.getCardNumber());
         $("[data-test-id='action-transfer']").click();
     }
-   public SelenideElement transferError(){
-        return $(withText("Недостаточно средств на счете для выполнения данной операции"));
+   public void transferError(){
+        $("Недостаточно средств на счете для выполнения данной операции").shouldBe(Condition.visible);
    }
  }
