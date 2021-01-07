@@ -4,14 +4,14 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.web.test.data.DataHelper;
 
-import static com.codeborne.selenide.Selectors.withText;
+
 import static com.codeborne.selenide.Selenide.$;
 
 public class TransferPage {
     private SelenideElement heading = $("[data-test-id=dashboard]");
 
-    public void transferMoney(String amount, DataHelper.CardInfo cardInfo){
-        $("[data-test-id='amount'] .input__control").setValue(amount);
+    public void transferMoney(DataHelper.TransferAmount transferAmount, DataHelper.CardInfo cardInfo){
+        $("[data-test-id='amount'] .input__control").setValue(String.valueOf(transferAmount));
         $("[data-test-id='from'] .input__control").setValue(cardInfo.getCardNumber());
         $("[data-test-id='action-transfer']").click();
     }

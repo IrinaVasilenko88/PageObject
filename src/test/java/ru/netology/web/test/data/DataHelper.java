@@ -1,10 +1,6 @@
 package ru.netology.web.test.data;
 
-import com.codeborne.selenide.impl.Randomizer;
 import lombok.Value;
-import lombok.val;
-import ru.netology.web.test.page.DashboardPage;
-import ru.netology.web.test.page.TransferPage;
 
 import java.util.Random;
 
@@ -48,15 +44,16 @@ public class DataHelper {
         return new CardInfo("5559 0000 0000 0002");
     }
 
-    public static class RandomAmount {
-        private int transferSum;
-    }
 
-    public static RandomAmount getTransferSum() {
-        Random random = new Random();
-        int cardBalance = new DashboardPage().getCardBalance();
-        int transferSum = random.nextInt(cardBalance);
-        return transferSum();
+    @Value
+    public static class TransferAmount {
+        private int cardBalance;
+    }
+        public int getTransferAmount(int cardBalance) {
+            Random random = new Random();
+            int transferSum = random.nextInt(cardBalance);
+            return transferSum;
+
     }
 
 
