@@ -15,7 +15,8 @@ public class TransferPage {
         $("[data-test-id='from'] .input__control").setValue(cardInfo.getCardNumber());
         $("[data-test-id='action-transfer']").click();
     }
-   public void transferError(){
+
+    public void transferError() {
         $("Недостаточно средств на счете для выполнения данной операции").shouldBe(Condition.visible);
-   }
- }
+    }
+}

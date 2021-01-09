@@ -45,7 +45,6 @@ public class DataHelper {
     }
 
 
-
     public static int getTransferAmount(int cardBalance) {
         Random random = new Random();
         int transferSum = random.nextInt(cardBalance);
