@@ -45,15 +45,11 @@ public class DataHelper {
     }
 
 
-    @Value
-    public static class TransferAmount {
-        private int cardBalance;
-    }
-        public int getTransferAmount(int cardBalance) {
-            Random random = new Random();
-            int transferSum = random.nextInt(cardBalance);
-            return transferSum;
 
+    public static int getTransferAmount(int cardBalance) {
+        Random random = new Random();
+        int transferSum = random.nextInt(cardBalance);
+        return transferSum;
     }
 
 

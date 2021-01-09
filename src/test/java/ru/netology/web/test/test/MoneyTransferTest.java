@@ -13,7 +13,7 @@ import static ru.netology.web.test.data.DataHelper.getSecondCardInfo;
 
 public class MoneyTransferTest {
     @BeforeEach
-    static void setUp() {
+    void setUp() {
         open("http://localhost:9999");
     }
 
@@ -25,15 +25,17 @@ public class MoneyTransferTest {
         val verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         val dashboardPage = verificationPage.validVerify(verificationCode);
         val firstCardBalance = dashboardPage.getCardBalance(getFirstCardInfo().getCardNumber());
-        val secondCardBalance= dashboardPage.getCardBalance(getSecondCardInfo().getCardNumber());
+        val secondCardBalance = dashboardPage.getCardBalance(getSecondCardInfo().getCardNumber());
         val transferPage = dashboardPage.depositToFirstCard();
-        transferPage.transferMoney(DataHelper.TransferAmount, DataHelper.getSecondCardInfo());
-        val expectedFirstCardBalanceAfter = firstCardBalance + DataHelper.TransferAmount;
-        val expectedSecondCardBalanceAfter = secondCardBalance - DataHelper.TransferAmount;
+        val amount = DataHelper.getTransferAmount(secondCardBalance);
+        transferPage.transferMoney(amount, DataHelper.getSecondCardInfo());
+        val expectedFirstCardBalanceAfter = firstCardBalance + amount;
+        val expectedSecondCardBalanceAfter = secondCardBalance - amount;
         Assertions.assertEquals(expectedFirstCardBalanceAfter, dashboardPage.getCardBalance(getFirstCardInfo().getCardNumber()));
         Assertions.assertEquals(expectedSecondCardBalanceAfter, dashboardPage.getCardBalance(getSecondCardInfo().getCardNumber()));
 
     }
+
     @Test
     void shouldTransferMoneyFromFirstCard() {
         val LoginPage = new LoginPage();
@@ -42,16 +44,17 @@ public class MoneyTransferTest {
         val verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         val dashboardPage = verificationPage.validVerify(verificationCode);
         val firstCardBalance = dashboardPage.getCardBalance(getFirstCardInfo().getCardNumber());
-        val secondCardBalance= dashboardPage.getCardBalance(getSecondCardInfo().getCardNumber());
+        val secondCardBalance = dashboardPage.getCardBalance(getSecondCardInfo().getCardNumber());
         val transferPage = dashboardPage.depositToSecondCard();
-        val amount = 6000;
-        transferPage.transferMoney(String.valueOf(amount), DataHelper.getFirstCardInfo() );
-        val expectedFirstCardBalanceAfter =firstCardBalance - amount;
+        val amount = DataHelper.getTransferAmount(firstCardBalance);
+        transferPage.transferMoney(amount, DataHelper.getFirstCardInfo());
+        val expectedFirstCardBalanceAfter = firstCardBalance - amount;
         val expectedSecondCardBalanceAfter = secondCardBalance + amount;
         Assertions.assertEquals(expectedFirstCardBalanceAfter, dashboardPage.getCardBalance(getFirstCardInfo().getCardNumber()));
         Assertions.assertEquals(expectedSecondCardBalanceAfter, dashboardPage.getCardBalance(getSecondCardInfo().getCardNumber()));
 
     }
+
     @Test
     void shouldNotTransferMoneyFromSecondCardMoreThanDeposit() {
         val LoginPage = new LoginPage();
@@ -60,8 +63,8 @@ public class MoneyTransferTest {
         val verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         val dashboardPage = verificationPage.validVerify(verificationCode);
         val transferPage = dashboardPage.depositToFirstCard();
-        val amount = 11000;
-        transferPage.transferMoney(String.valueOf(amount), DataHelper.getSecondCardInfo() );
+        val amount = 25000;
+        transferPage.transferMoney(amount, DataHelper.getSecondCardInfo());
         transferPage.transferError();
 
     }
