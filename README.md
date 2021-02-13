@@ -9,8 +9,11 @@
 Тестирование функции перевода с карты на карту(приложение ``` app-ibank-build-for-testers.jar```) с методами:
 
 - Перевода с определённой карты на другую карту n'ой суммы
+
 ![](https://github.com/netology-code/aqa-homeworks/blob/aqa4/bdd/pic/transfer.png)
+
 - Проверки баланса по карте (со страницы списка карт)
+
 ![](https://github.com/netology-code/aqa-homeworks/blob/aqa4/bdd/pic/cards.png)
 
 **Для запуска проекта:**
